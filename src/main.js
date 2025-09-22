@@ -38,7 +38,7 @@ function calculateBonusByProfit(index, total, seller) {
  */
 function analyzeSalesData(data, options) {
     if (!data || !options) {
-        throw new Error("Некорректные входные данные")
+        // throw new Error("Некорректные входные данные")    
     }
     const { calculateRevenue, calculateBonus } = options;
     const sellerStats = data.sellers.map(seller => ({
@@ -52,7 +52,10 @@ function analyzeSalesData(data, options) {
    
     const sellerIndex = Object.fromEntries(sellerStats.map(item => [item.id, item]))
     const productIndex = Object.fromEntries(data.products.map(item => [item.sku, item]))
-
+    
+    if (!Array.isArray(data.purchase_records) || !data.purchase_records) {
+        throw new Error("Некорректные данные")
+    }
     data.purchase_records.forEach(record => { // Чек 
         const seller = sellerIndex[record.seller_id]; // Продавец
         // Увеличить количество продаж 
