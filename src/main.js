@@ -53,7 +53,7 @@ function analyzeSalesData(data, options) {
     const sellerIndex = Object.fromEntries(sellerStats.map(item => [item.id, item]))
     const productIndex = Object.fromEntries(data.products.map(item => [item.sku, item]))
     
-    if (!Array.isArray(data.purchase_records) || !data.purchase_records) {
+    if (!Array.isArray(data.purchase_records) || !data.purchase_records || data.purchase_records.length === 0) {
         throw new Error("Некорректные данные")
     }
     data.purchase_records.forEach(record => { // Чек 
