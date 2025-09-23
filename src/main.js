@@ -89,7 +89,7 @@ function analyzeSalesData(data, options) {
         seller.bonus = calculateBonus(index, arrLength, seller)
         seller.top_products = Object.entries(seller.products_sold)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 9)
+        .slice(0, 10)
     })
     
     return sellerStats.map(seller => ({
@@ -98,7 +98,7 @@ function analyzeSalesData(data, options) {
         revenue: +seller.revenue.toFixed(2),
         profit: +seller.profit.toFixed(2),
         sales_count: seller.sales_count,
-        top_products: Object.fromEntries(seller.top_products),
+        top_products: seller.top_products.map(item => ({'sku': item[0], 'quantity': item[1]})),
         bonus: +seller.bonus.toFixed(2)
     }))
 }
